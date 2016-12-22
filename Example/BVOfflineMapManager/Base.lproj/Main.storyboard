@@ -1,25 +1,91 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="BVOfflineMapManager_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="JRC-yp-pAC">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GGk-jr-GG6">
+                                <rect key="frame" x="100" y="28" width="121" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="121" id="JWU-E6-cAy"/>
+                                    <constraint firstAttribute="height" constant="28" id="M3R-Sk-pDC"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Apple"/>
+                                    <segment title="Offline"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="wa1-uB-GK2"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJX-Df-SRZ">
+                                <rect key="frame" x="120" y="468" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="I6q-Hf-mGF"/>
+                                    <constraint firstAttribute="height" constant="80" id="RUd-zH-dsy"/>
+                                </constraints>
+                                <state key="normal" image="cloudDownloadBlue"/>
+                                <connections>
+                                    <action selector="downloadMap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hTy-Zr-2CS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LKe-bf-ck6">
+                                <rect key="frame" x="20" y="28" width="36" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="6po-hZ-tG0"/>
+                                    <constraint firstAttribute="width" constant="36" id="W4k-dc-7pS"/>
+                                </constraints>
+                                <state key="normal" title="Clear"/>
+                                <connections>
+                                    <action selector="clear:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="QnJ-jD-Flb"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JRC-yp-pAC" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="8hB-WX-Li3"/>
+                            <constraint firstItem="EJX-Df-SRZ" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="AKS-gd-cSP"/>
+                            <constraint firstItem="LKe-bf-ck6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="AVo-CE-bVc"/>
+                            <constraint firstItem="GGk-jr-GG6" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="NvJ-7e-Oi1"/>
+                            <constraint firstItem="GGk-jr-GG6" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="ODr-Wg-xlx"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="JRC-yp-pAC" secondAttribute="bottom" id="OOO-1Z-0aC"/>
+                            <constraint firstItem="JRC-yp-pAC" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="QC5-i7-ORI"/>
+                            <constraint firstItem="JRC-yp-pAC" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="awP-g9-1ow"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="EJX-Df-SRZ" secondAttribute="bottom" constant="20" id="bGt-hZ-PrZ"/>
+                            <constraint firstItem="JRC-yp-pAC" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="cA6-Xt-xMx"/>
+                            <constraint firstAttribute="trailing" secondItem="JRC-yp-pAC" secondAttribute="trailing" id="ghe-td-Fzu"/>
+                            <constraint firstItem="LKe-bf-ck6" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="xbb-gW-3Q5"/>
+                        </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="downloadButton" destination="EJX-Df-SRZ" id="XgB-ON-B2i"/>
+                        <outlet property="mapView" destination="JRC-yp-pAC" id="Mt8-ky-KCk"/>
+                        <outlet property="segmentControl" destination="GGk-jr-GG6" id="cts-7k-gnP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="510" y="325"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="cloudDownloadBlue" width="250" height="250"/>
+    </resources>
 </document>

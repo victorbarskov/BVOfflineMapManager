@@ -10,13 +10,13 @@
 		0F4B3C47B6D983D68649C06664712528 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 		1B055F7137C4E56704726717F5432356 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 		22C199C8E921791685125AB14A6AF549 /* Pods-BVOfflineMapManager_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCC44E229BF3486E897BCC5912A4C3C /* Pods-BVOfflineMapManager_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		62BF21545CCF973F450B2702A2231F7C /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A90BB32D608AA83F2A54BA9B584884 /* ReplaceMe.swift */; };
 		7A3D3D2CBAC8E56E25F69AC7F8AECC27 /* Pods-BVOfflineMapManager_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5663364BB7F0755CBF69C2A4208B76B0 /* Pods-BVOfflineMapManager_Example-dummy.m */; };
 		8737BE44CDC7D0393D63280D2455417F /* Pods-BVOfflineMapManager_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F1F7A0780BA946C4EEE8CEFEE4A45D /* Pods-BVOfflineMapManager_Tests-dummy.m */; };
+		9054DD90B9D9D6E09F5AB232FE568DD3 /* BVOfflineMapManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A10A22F6CA3731C1ACEA9D85A4876F /* BVOfflineMapManager-dummy.m */; };
 		B4F96DD838A116D0B6E04E78D64CCAE5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 		B71FF9EDCD6A25498CE635B17819C373 /* Pods-BVOfflineMapManager_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F77F25DFCC858103AA382F21E0D2236 /* Pods-BVOfflineMapManager_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB52307177594DFA5261E58D08314192 /* BVOfflineMapManager-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F966EBED58B68CB2728D4490243F97EC /* BVOfflineMapManager-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DC900B551368DC020589F61B9AC9C730 /* BVOfflineMapManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A10A22F6CA3731C1ACEA9D85A4876F /* BVOfflineMapManager-dummy.m */; };
+		E7B115FC43BDBBFBEFED75B1532F96EA /* BVOfflineMapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A093ABE24DED96B9F7695AE5E8DF9A2 /* BVOfflineMapManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +32,7 @@
 /* Begin PBXFileReference section */
 		0DC1A9B6EEA4CF5EED48CB52C752E934 /* Pods-BVOfflineMapManager_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BVOfflineMapManager_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		0F77F25DFCC858103AA382F21E0D2236 /* Pods-BVOfflineMapManager_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BVOfflineMapManager_Example-umbrella.h"; sourceTree = "<group>"; };
+		1A093ABE24DED96B9F7695AE5E8DF9A2 /* BVOfflineMapManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BVOfflineMapManager.swift; sourceTree = "<group>"; };
 		4769FD2621182DB80E7F24CB398F81E0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51B748B6446CA6E2936135F607546C33 /* Pods-BVOfflineMapManager_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BVOfflineMapManager_Example.release.xcconfig"; sourceTree = "<group>"; };
 		52E484A9FE4CC148E591DB6C4B8AD403 /* Pods-BVOfflineMapManager_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BVOfflineMapManager_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -49,7 +50,6 @@
 		9EF45BA14471C4178A1B130F137DF723 /* Pods_BVOfflineMapManager_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BVOfflineMapManager_Example.framework; path = "Pods-BVOfflineMapManager_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D8CC430F68CAAC826578ED5AC73E7D /* BVOfflineMapManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BVOfflineMapManager.framework; path = BVOfflineMapManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6A10A22F6CA3731C1ACEA9D85A4876F /* BVOfflineMapManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BVOfflineMapManager-dummy.m"; sourceTree = "<group>"; };
-		A8A90BB32D608AA83F2A54BA9B584884 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReplaceMe.swift; sourceTree = "<group>"; };
 		AA86BE92AA86B76E36F0D8C8006131A4 /* Pods-BVOfflineMapManager_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BVOfflineMapManager_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		AA8E1D76E04C8AEE05490179C3B622EC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFA4D2A848CD7A250A3AE31CC72CEA43 /* BVOfflineMapManager.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = BVOfflineMapManager.modulemap; sourceTree = "<group>"; };
@@ -108,6 +108,15 @@
 			);
 			name = "Pods-BVOfflineMapManager_Example";
 			path = "Target Support Files/Pods-BVOfflineMapManager_Example";
+			sourceTree = "<group>";
+		};
+		3B3CB50333B650949AE3A5F0155DAF5E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1A093ABE24DED96B9F7695AE5E8DF9A2 /* BVOfflineMapManager.swift */,
+			);
+			name = Classes;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		480071BCEBEB5BBB54491F5AA203A76D /* Support Files */ = {
@@ -169,15 +178,6 @@
 			);
 			sourceTree = "<group>";
 		};
-		9BD1E108BB1A35F16CCE978BC7A860AF /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				A8A90BB32D608AA83F2A54BA9B584884 /* ReplaceMe.swift */,
-			);
-			name = Classes;
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		AD48799F5EB7115C1483CFCF9749539D /* BVOfflineMapManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,7 +208,7 @@
 		D245F8F08E65EC6F511E70778E5405B6 /* BVOfflineMapManager */ = {
 			isa = PBXGroup;
 			children = (
-				9BD1E108BB1A35F16CCE978BC7A860AF /* Classes */,
+				3B3CB50333B650949AE3A5F0155DAF5E /* Classes */,
 			);
 			name = BVOfflineMapManager;
 			path = BVOfflineMapManager;
@@ -276,7 +276,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBC3A6BB245B5A0978B266570D9FC857 /* Build configuration list for PBXNativeTarget "BVOfflineMapManager" */;
 			buildPhases = (
-				25883DADBD5CF0AD200D96DEA974D290 /* Sources */,
+				40A38CEBD24CC0A5FE70ABBA38628606 /* Sources */,
 				BF9ADB4FD44E6FA800889BA799D76A34 /* Frameworks */,
 				0D9A132279A447B1DB6B1DB416ED4787 /* Headers */,
 			);
@@ -335,12 +335,12 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		25883DADBD5CF0AD200D96DEA974D290 /* Sources */ = {
+		40A38CEBD24CC0A5FE70ABBA38628606 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC900B551368DC020589F61B9AC9C730 /* BVOfflineMapManager-dummy.m in Sources */,
-				62BF21545CCF973F450B2702A2231F7C /* ReplaceMe.swift in Sources */,
+				9054DD90B9D9D6E09F5AB232FE568DD3 /* BVOfflineMapManager-dummy.m in Sources */,
+				E7B115FC43BDBBFBEFED75B1532F96EA /* BVOfflineMapManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
