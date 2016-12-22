@@ -17,7 +17,7 @@ iOS 8.0+, Swift 2.2
 
 Swift 2.2: 
 
-To start maps downloading and saving call following methid with passing of initial coordinate lat and lon, radius and zoom: 
+To start maps downloading and saving call following method with passing of initial coordinate lat and lon, radius and zoom: 
 
 ```swift
 BVOfflineMapManager.shared.startDownloading(lat: Double, lon: Double, zoom: CustomMapZoom, radius: CustomMapRadius)
