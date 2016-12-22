@@ -11,11 +11,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-iOS 8.0+, Swift 2.2
+iOS 8.0+, Swift 2.3, Swift 3
 
 ## Usage 
 
-Swift 2.2: 
+Swift 2.3: 
 
 To start maps downloading and saving call following method with passing of initial coordinate lat and lon, radius and zoom: 
 
@@ -39,8 +39,15 @@ BVOfflineMapManager.shared.clearMapCache(callBack: (Bool) -> ())
 BVOfflineMapManager is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
+Swift 3
+
 ```ruby
-pod "BVOfflineMapManager"
+pod "BVOfflineMapManager" '~> 0.1.1'
+```
+Swift 2.3
+
+```ruby
+pod "BVOfflineMapManager" '~> 0.1.0'
 ```
 
 ## Author
@@ -49,7 +56,7 @@ Victor Barskov, victor.barskov@gmail.com
 
 ## References: 
 
-* [Circular Progress Bar] - circullar bar which useed in the library
+* [Circular Progress Bar] - circullar bar which used in the library
 * [Custom and OfflineMaps UsingOverlay Tiles] - the library inspired by this article 
 
 ## License

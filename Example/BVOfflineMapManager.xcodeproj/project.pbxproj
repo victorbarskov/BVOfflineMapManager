@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3AFD81D21E0BB389003281D8 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFD81D11E0BB389003281D8 /* Reachability.swift */; };
+		3AD603C31E0BCDC6000D1EC7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD603C21E0BCDC6000D1EC7 /* Reachability.swift */; };
 		3D182EB1DAD6C4FBF636850C /* Pods_BVOfflineMapManager_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C5657F44F9321C7A943EC7 /* Pods_BVOfflineMapManager_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -32,7 +32,7 @@
 		019289767D4FB440AAAEA0DD /* Pods-BVOfflineMapManager_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BVOfflineMapManager_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-BVOfflineMapManager_Example/Pods-BVOfflineMapManager_Example.release.xcconfig"; sourceTree = "<group>"; };
 		01C5657F44F9321C7A943EC7 /* Pods_BVOfflineMapManager_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BVOfflineMapManager_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E2C1DE4CB9FB19325F9B30B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		3AFD81D11E0BB389003281D8 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		3AD603C21E0BCDC6000D1EC7 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		3EAD3C729B17B1647C656E6C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* BVOfflineMapManager_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BVOfflineMapManager_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 		607FACD21AFB9204008FA782 /* Example for BVOfflineMapManager */ = {
 			isa = PBXGroup;
 			children = (
-				3AFD81D11E0BB389003281D8 /* Reachability.swift */,
+				3AD603C21E0BCDC6000D1EC7 /* Reachability.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -218,9 +218,14 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = Y8987BXL48;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = Y8987BXL48;
+						LastSwiftMigration = 0800;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -364,7 +369,7 @@
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				3AFD81D21E0BB389003281D8 /* Reachability.swift in Sources */,
+				3AD603C31E0BCDC6000D1EC7 /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,11 +498,14 @@
 			baseConfigurationReference = D486298E08F9BFF7803B8C9B /* Pods-BVOfflineMapManager_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Y8987BXL48;
 				INFOPLIST_FILE = BVOfflineMapManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -506,11 +514,14 @@
 			baseConfigurationReference = 019289767D4FB440AAAEA0DD /* Pods-BVOfflineMapManager_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Y8987BXL48;
 				INFOPLIST_FILE = BVOfflineMapManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -518,6 +529,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D227FE359F47E915A701D288 /* Pods-BVOfflineMapManager_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = Y8987BXL48;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -530,6 +542,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -537,6 +550,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C666CF8571EBBA1D2CE3E3F8 /* Pods-BVOfflineMapManager_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = Y8987BXL48;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -545,6 +559,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

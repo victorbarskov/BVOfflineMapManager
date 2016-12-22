@@ -407,6 +407,39 @@
 			};
 			name = Release;
 		};
+		4F6B8976D0D136E69BB75E1BDB0BB338 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DF251CFC041E20FA55110E9134FA5E0 /* BVOfflineMapManager.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/BVOfflineMapManager/BVOfflineMapManager-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/BVOfflineMapManager/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/BVOfflineMapManager/BVOfflineMapManager.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = BVOfflineMapManager;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		6824B1C54A491FBB6A5B5FBF9C18999C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA86BE92AA86B76E36F0D8C8006131A4 /* Pods-BVOfflineMapManager_Example.debug.xcconfig */;
@@ -442,6 +475,38 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		6DD82D6E2E8B32510338E0462CA1738B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DF251CFC041E20FA55110E9134FA5E0 /* BVOfflineMapManager.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/BVOfflineMapManager/BVOfflineMapManager-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/BVOfflineMapManager/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/BVOfflineMapManager/BVOfflineMapManager.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = BVOfflineMapManager;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		761410D0D70A7BF5B636C5BF4EC6BBF5 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -562,37 +627,6 @@
 			};
 			name = Debug;
 		};
-		AEAE24AD9B83F9FDF30986D984A540AB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6DF251CFC041E20FA55110E9134FA5E0 /* BVOfflineMapManager.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/BVOfflineMapManager/BVOfflineMapManager-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/BVOfflineMapManager/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/BVOfflineMapManager/BVOfflineMapManager.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = BVOfflineMapManager;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		C1BB47C72E9B22067C8A4637BF2F5AE2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CBC2C4DF6D672F87043E93225442783F /* Pods-BVOfflineMapManager_Tests.release.xcconfig */;
@@ -628,38 +662,6 @@
 			};
 			name = Release;
 		};
-		F964EE6D4F1C1F1ECB52A56B0BDC95DA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6DF251CFC041E20FA55110E9134FA5E0 /* BVOfflineMapManager.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/BVOfflineMapManager/BVOfflineMapManager-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/BVOfflineMapManager/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/BVOfflineMapManager/BVOfflineMapManager.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = BVOfflineMapManager;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -693,8 +695,8 @@
 		DBC3A6BB245B5A0978B266570D9FC857 /* Build configuration list for PBXNativeTarget "BVOfflineMapManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F964EE6D4F1C1F1ECB52A56B0BDC95DA /* Debug */,
-				AEAE24AD9B83F9FDF30986D984A540AB /* Release */,
+				4F6B8976D0D136E69BB75E1BDB0BB338 /* Debug */,
+				6DD82D6E2E8B32510338E0462CA1738B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

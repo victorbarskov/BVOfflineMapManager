@@ -31,25 +31,25 @@ import MapKit
 
 
 public enum CustomMapZoom: Int {
-    case High = 10, Low = 12, Deep = 16, Deepest = 17
+    case high = 10, low = 12, deep = 16, deepest = 17
 }
 
 public enum CustomMapRadius: Int {
-    case HalfMile = 4, Mile = 6, TwoMiles = 8
+    case halfMile = 4, mile = 6, twoMiles = 8
 }
 
 public enum CustomMapTileOverlayType: Int {
-    case Apple = 0, Offline = 1
+    case apple = 0, offline = 1
 }
 
 var downloadedTilesConst = 0
 var countedTilesConst = 0
 
-public class BVOfflineMapManager: NSObject {
+open class BVOfflineMapManager: NSObject {
     
     // MARK: - Singletone -
     
-    public class var shared: BVOfflineMapManager {
+    open class var shared: BVOfflineMapManager {
         struct Singleton {
             static let instance = BVOfflineMapManager()
         }
@@ -58,41 +58,41 @@ public class BVOfflineMapManager: NSObject {
     
     // MARK: - Properties -
     
-    private var downloadedTiles = 0
-    private var countTiles = 0
-    private var circularProgress: KYCircularProgress!
-    private var circularProgressFrame: CGRect!
-    private var stopButton: UIButton!
-    private var tileOverlay: MKTileOverlay?
-    private var urlTemplatePath = String()
-    private let queue = NSOperationQueue()
-    private var flag = false
+    fileprivate var downloadedTiles = 0
+    fileprivate var countTiles = 0
+    fileprivate var circularProgress: KYCircularProgress!
+    fileprivate var circularProgressFrame: CGRect!
+    fileprivate var stopButton: UIButton!
+    fileprivate var tileOverlay: MKTileOverlay?
+    fileprivate var urlTemplatePath = String()
+    fileprivate let queue = OperationQueue()
+    fileprivate var flag = false
     
     
     // Tiles swiftch on MapView
     
-    public func reloadTileOverlay(mapView: MKMapView, overlayType: CustomMapTileOverlayType?) {
+    open func reloadTileOverlay(_ mapView: MKMapView, overlayType: CustomMapTileOverlayType?) {
         
         // remove existing map tile overlay
         
         let type = overlayType
         
         if tileOverlay != nil {
-            mapView.removeOverlay(tileOverlay!)
+            mapView.remove(tileOverlay!)
         }
         
-        if type == .Apple {
+        if type == .apple {
             
             tileOverlay = nil
             
         } else {
             
-            let documentPath = NSFileManager.defaultManager().URLsForDirectory(.CachesDirectory, inDomains: .UserDomainMask)[0]
+            let documentPath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
             let urlTemplate = documentPath.absoluteString + "tiles/{z}/{x}/{y}.png"
-            tileOverlay?.geometryFlipped = true
-            tileOverlay = MKTileOverlay(URLTemplate: urlTemplate)
+            tileOverlay?.isGeometryFlipped = true
+            tileOverlay = MKTileOverlay(urlTemplate: urlTemplate)
             tileOverlay?.canReplaceMapContent = true
-            mapView.addOverlay(tileOverlay!)
+            mapView.add(tileOverlay!)
             
         }
         
@@ -102,7 +102,7 @@ public class BVOfflineMapManager: NSObject {
     
     // - All about tiles downloading -
     
-    private func transformWorldCoordinateToTilePathForZoom(zoom: Int, lon: Double, lat : Double) -> (x: Int, y: Int) {
+    fileprivate func transformWorldCoordinateToTilePathForZoom(_ zoom: Int, lon: Double, lat : Double) -> (x: Int, y: Int) {
         
         let midtileX = floor((lon + 180.0) / 360.0 * pow(2.0, Double(zoom)))
         let midTileY = floor((1.0 - log( tan(lat * M_PI/180.0) + 1.0 / cos(lat * M_PI/180.0)) / M_PI) / 2.0 * pow(2.0, Double(zoom)))
@@ -113,17 +113,17 @@ public class BVOfflineMapManager: NSObject {
         
     }
     
-    public func startDownloading (lat: Double,
+    open func startDownloading (_ lat: Double,
                                   lon: Double,
                                   zoom: CustomMapZoom,
                                   radius: CustomMapRadius,
-                                  progressfillColor: UIColor = UIColor.blackColor(),
-                                  progressGuideColor: UIColor = UIColor.lightGrayColor(),
+                                  progressfillColor: UIColor = UIColor.black,
+                                  progressGuideColor: UIColor = UIColor.lightGray,
                                   fillLineWidth: Double = 12.0,
-                                  textLabelFont: UIFont = UIFont.systemFontOfSize(28.0),
-                                  textLabelColor: UIColor = UIColor.blackColor(),
-                                  stopButtonColor: UIColor = UIColor.blueColor(),
-                                  stopButtonLabelFont: UIFont = UIFont.systemFontOfSize(17.0),
+                                  textLabelFont: UIFont = UIFont.systemFont(ofSize: 28.0),
+                                  textLabelColor: UIColor = UIColor.black,
+                                  stopButtonColor: UIColor = UIColor.blue,
+                                  stopButtonLabelFont: UIFont = UIFont.systemFont(ofSize: 17.0),
                                   stopButtontitle: String = NSLocalizedString("Stop", comment: "")) {
         
         
@@ -143,9 +143,9 @@ public class BVOfflineMapManager: NSObject {
             
             countedTilesConst = count
             
-            let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+//            let qos = Int(DispatchQoS.QoSClass.userInitiated.rawValue)
             
-            dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
+            DispatchQueue.global(priority: .background).async { () -> Void in
                 
                 let sixThirteen = (radius.rawValue - radius.rawValue + 2)
                 let thirteenFiveteen = (radius.rawValue - radius.rawValue + 3)
@@ -221,13 +221,13 @@ public class BVOfflineMapManager: NSObject {
     }
     
     
-    private func getNumberTiles(zoom: CustomMapZoom,radius: CustomMapRadius, lon: Double, lat : Double, completion: (Int) -> Void) {
+    fileprivate func getNumberTiles(_ zoom: CustomMapZoom,radius: CustomMapRadius, lon: Double, lat : Double, completion: @escaping (Int) -> Void) {
         
         var count = 0
         
-        let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+//        let qos = Int(DispatchQoS.QoSClass.userInitiated.rawValue)
         
-        dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
+        DispatchQueue.global(priority: .background).async { () -> Void in
             
             let sixThirteen = (radius.rawValue - radius.rawValue + 2)
             let thirteenFiveteen = (radius.rawValue - radius.rawValue + 3)
@@ -292,7 +292,7 @@ public class BVOfflineMapManager: NSObject {
                 }
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 completion(count)
             }
             
@@ -300,21 +300,21 @@ public class BVOfflineMapManager: NSObject {
         
     }
     
-    private func saveImage (zoom: Int, x: Int, y: Int) {
+    fileprivate func saveImage (_ zoom: Int, x: Int, y: Int) {
         
         let url = "http://c.tile.openstreetmap.org/\(zoom)/\(x)/\(y).png"
         //        let url = "http://mt0.google.com/vt/z=\(zoom)&x=\(x)&y=\(y)"
-        let urlWithString = NSURL(string: url)
+        let urlWithString = URL(string: url)
         
         queue.name = "TileDownloadQueue"
         queue.maxConcurrentOperationCount = 1
         
-        queue.addOperationWithBlock {
+        queue.addOperation {
             
-            NSURLSession.sharedSession().downloadTaskWithURL(urlWithString!) { temporaryURL, response, error in
+            URLSession.shared.downloadTask(with: urlWithString!, completionHandler: { temporaryURL, response, error in
                 
                 guard let url = temporaryURL else {
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         self.stopDownloading()
                         if !self.flag {
                             self.errorAlert()
@@ -323,8 +323,8 @@ public class BVOfflineMapManager: NSObject {
                     }
                     return
                 }
-                guard let data = NSData.init(contentsOfURL: url) else {
-                    dispatch_async(dispatch_get_main_queue()) {
+                guard let data = try? Data.init(contentsOf: url) else {
+                    DispatchQueue.main.async {
                         self.stopDownloading()
                         if !self.flag {
                             self.errorAlert()
@@ -334,7 +334,7 @@ public class BVOfflineMapManager: NSObject {
                     return
                 }
                 guard let image = UIImage(data: data) else {
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         self.stopDownloading()
                         if !self.flag {
                             self.errorAlert()
@@ -353,7 +353,7 @@ public class BVOfflineMapManager: NSObject {
                 
                 guard error == nil && temporaryURL != nil else {
                     print(error)
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         self.stopDownloading()
                         if !self.flag {
                             self.errorAlert()
@@ -367,7 +367,7 @@ public class BVOfflineMapManager: NSObject {
                     
                     let current = Double(downloadedTilesConst)/Double(countedTilesConst)
                     
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         
                         if let progress = self.circularProgress {
                             progress.progress = Double(current)
@@ -379,89 +379,89 @@ public class BVOfflineMapManager: NSObject {
                             
                             self.stopDownloading()
                             
-                            let alertController = UIAlertController (title: "Thank you!", message: "Maps will be switched automatically once you will be offline", preferredStyle: .Alert)
+                            let alertController = UIAlertController (title: "Thank you!", message: "Maps will be switched automatically once you will be offline", preferredStyle: .alert)
                             
-                            let action = UIAlertAction(title:"Ok", style: .Default) { (_) -> Void in
+                            let action = UIAlertAction(title:"Ok", style: .default) { (_) -> Void in
                                 
                             }
                             alertController.addAction(action)
                             
                             if let topVC = UIApplication.topViewController() {
-                                topVC.presentViewController(alertController, animated: true, completion: nil)
+                                topVC.present(alertController, animated: true, completion: nil)
                             }
                         }
                     }
                 }
-                }.resume()
+                }) .resume()
         }
     }
     
-    private func saveImage(image: UIImage, fileName: String, type: String, directoryPath: String) {
+    fileprivate func saveImage(_ image: UIImage, fileName: String, type: String, directoryPath: String) {
         
-        guard let dirURL = NSURL(string: directoryPath) else {return}
+        guard let dirURL = URL(string: directoryPath) else {return}
         
         do {
             
-            try NSFileManager.defaultManager().createDirectoryAtURL(dirURL, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(at: dirURL, withIntermediateDirectories: true, attributes: nil)
         } catch let error as NSError {
             print(error.localizedDescription);
         }
         
-        if type.lowercaseString == "png" {
+        if type.lowercased() == "png" {
             
-            let mutableURLPNG = dirURL.URLByAppendingPathComponent("\(fileName).png")
+            let mutableURLPNG = dirURL.appendingPathComponent("\(fileName).png")
             
             do {
-                try UIImagePNGRepresentation(image)?.writeToURL(mutableURLPNG, options: .DataWritingFileProtectionComplete)
+                try UIImagePNGRepresentation(image)?.write(to: mutableURLPNG, options: .completeFileProtection)
                 
             } catch let error as NSError {
                 print(error.localizedDescription);
             }
             
-        } else if type.lowercaseString == "jpg" || type.lowercaseString == "jpeg" {
+        } else if type.lowercased() == "jpg" || type.lowercased() == "jpeg" {
             
-            let mutableURLJPG = dirURL.URLByAppendingPathComponent("\(fileName).png")
+            let mutableURLJPG = dirURL.appendingPathComponent("\(fileName).png")
             do {
-                try UIImageJPEGRepresentation(image, 1.0)?.writeToURL(mutableURLJPG, options: .DataWritingFileProtectionComplete)
+                try UIImageJPEGRepresentation(image, 1.0)?.write(to: mutableURLJPG, options: .completeFileProtection)
             } catch let error as NSError {
                 print(error.localizedDescription);
             }
         }
     }
     
-    private func pathToWriteImage (z: Int, x: Int) -> String? {
+    fileprivate func pathToWriteImage (_ z: Int, x: Int) -> String? {
         
         let pathFolder = "tiles/\(z)/\(x)"
         let directory = applicationDirectory()
         return "\(directory)/\(pathFolder)"
     }
     
-    private func applicationDirectory() -> NSURL {
+    fileprivate func applicationDirectory() -> URL {
         
-        return NSFileManager.defaultManager().URLsForDirectory(.CachesDirectory, inDomains: .UserDomainMask).first!
+        return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
     }
     
-    private func userInteractionEnabled() {
+    fileprivate func userInteractionEnabled() {
         
         guard let vc = UIApplication.topViewController() else {return}
         for view in vc.view.subviews {
-            view.userInteractionEnabled = true
+            view.isUserInteractionEnabled = true
         }
     }
     
-    private func userInteractionDisabled() {
+    fileprivate func userInteractionDisabled() {
         
         guard let vc = UIApplication.topViewController() else {return}
         for view in vc.view.subviews {
             if view.tag == 101 {
-                view.userInteractionEnabled = true
+                view.isUserInteractionEnabled = true
             } else {
-                view.userInteractionEnabled = false
+                view.isUserInteractionEnabled = false
             }
         }
     }
     
-    @objc private func stopDownloading() {
+    @objc fileprivate func stopDownloading() {
         
         
         userInteractionEnabled()
@@ -479,11 +479,11 @@ public class BVOfflineMapManager: NSObject {
         
     }
     
-    private func configureCircularProgress(progressfillColor: UIColor, progressGuideColor: UIColor, fillLineWidth: Double, textLabelFont: UIFont, textLabelColor: UIColor, stopButtonColor: UIColor, stopButtonLabelFont: UIFont, stopButtontitle: String ) {
+    fileprivate func configureCircularProgress(_ progressfillColor: UIColor, progressGuideColor: UIColor, fillLineWidth: Double, textLabelFont: UIFont, textLabelColor: UIColor, stopButtonColor: UIColor, stopButtonLabelFont: UIFont, stopButtontitle: String ) {
         
         guard let vc = UIApplication.topViewController() else {return}
         
-        circularProgressFrame = CGRectMake(vc.view.center.x - CGRectGetWidth(vc.view.frame)/3/2, vc.view.center.y - CGRectGetWidth(vc.view.frame)/2/2, CGRectGetWidth(vc.view.frame)/3, CGRectGetWidth(vc.view.frame)/3)
+        circularProgressFrame = CGRect(x: vc.view.center.x - vc.view.frame.width/3/2, y: vc.view.center.y - vc.view.frame.width/2/2, width: vc.view.frame.width/3, height: vc.view.frame.width/3)
         
         circularProgress = KYCircularProgress(frame: circularProgressFrame)
         
@@ -492,35 +492,35 @@ public class BVOfflineMapManager: NSObject {
         circularProgress.showProgressGuide = true
         circularProgress.progressGuideColor =  progressGuideColor/*UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.4)*/
         
-        let textLabel = UILabel(frame: CGRectMake(CGRectGetWidth(vc.view.frame)/3/2 - 40, CGRectGetWidth(vc.view.frame)/3/2 - 16, 80.0, 32.0))
+        let textLabel = UILabel(frame: CGRect(x: vc.view.frame.width/3/2 - 40, y: vc.view.frame.width/3/2 - 16, width: 80.0, height: 32.0))
         textLabel.font = textLabelFont
-        textLabel.textAlignment = .Center
+        textLabel.textAlignment = .center
         textLabel.textColor = textLabelColor
         textLabel.alpha = 0.8
         circularProgress.addSubview(textLabel)
         
-        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
         
-        spinner.frame = CGRectMake(CGRectGetWidth(vc.view.frame)/3/2 - 20/2, CGRectGetWidth(vc.view.frame)/3/2 - 20/2, 20, 20)// (or wherever you want it in the button)
+        spinner.frame = CGRect(x: vc.view.frame.width/3/2 - 20/2, y: vc.view.frame.width/3/2 - 20/2, width: 20, height: 20)// (or wherever you want it in the button)
         
         spinner.startAnimating()
-        spinner.color = UIColor.lightGrayColor()
+        spinner.color = UIColor.lightGray
         circularProgress.addSubview(spinner)
         
-        self.stopButton = UIButton(frame: CGRect(x: CGRectGetWidth(vc.view.frame)/2 - 50, y: circularProgressFrame.maxY + circularProgressFrame.size.height/6, width: 100, height: 50))
+        self.stopButton = UIButton(frame: CGRect(x: vc.view.frame.width/2 - 50, y: circularProgressFrame.maxY + circularProgressFrame.size.height/6, width: 100, height: 50))
         
         stopButton.backgroundColor = stopButtonColor
         stopButton.titleLabel?.font = stopButtonLabelFont
         stopButton.layer.cornerRadius = 5.0
         stopButton.tag = 101
-        stopButton.setTitle(stopButtontitle, forState: .Normal)
-        stopButton.addTarget(self, action: #selector(BVOfflineMapManager.stopDownloading), forControlEvents: .TouchUpInside)
+        stopButton.setTitle(stopButtontitle, for: UIControlState())
+        stopButton.addTarget(self, action: #selector(BVOfflineMapManager.stopDownloading), for: .touchUpInside)
         
         vc.view.addSubview(self.stopButton)
         
         circularProgress.progressChangedClosure() {(progress: Double, circularView: KYCircularProgress) in
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 spinner.stopAnimating()
                 spinner.removeFromSuperview()
                 textLabel.text = "\(Int(progress * 100.0))%"
@@ -530,46 +530,46 @@ public class BVOfflineMapManager: NSObject {
         vc.view.addSubview(circularProgress)
     }
     
-    public func clearMapCache(callBack:(Bool) -> ()) {
+    open func clearMapCache(_ callBack:@escaping (Bool) -> ()) {
         
         guard let vc = UIApplication.topViewController() else {return}
         
-        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
-        spinner.frame = CGRectMake(vc.view.frame.size.width/2 - 10, vc.view.frame.size.height/2 - 10, 20, 20)
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        spinner.frame = CGRect(x: vc.view.frame.size.width/2 - 10, y: vc.view.frame.size.height/2 - 10, width: 20, height: 20)
         spinner.startAnimating()
-        spinner.color = UIColor.blackColor()
+        spinner.color = UIColor.black
         vc.view.addSubview(spinner)
         
-        let fileManager = NSFileManager.defaultManager()
-        let documentsUrl =  NSFileManager.defaultManager().URLsForDirectory(.CachesDirectory, inDomains: .UserDomainMask).first! as NSURL
-        let documentsPath = documentsUrl.path
+        let fileManager = FileManager.default
+        let documentsUrl =  FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first! as? URL
+        let documentsPath = documentsUrl?.path
         
-        let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+//        let qos = Int(DispatchQoS.QoSClass.userInitiated.rawValue)
         
-        dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
+        DispatchQueue.global(priority: .background).async { () -> Void in
             
             do {
                 if let documentPath = documentsPath
                 {
                     
-                    let fileNames = try fileManager.contentsOfDirectoryAtPath("\(documentPath)")
+                    let fileNames = try fileManager.contentsOfDirectory(atPath: "\(documentPath)")
                     
                     let contained = fileNames.contains("tiles")
                     if !contained {
                         
-                        dispatch_async(dispatch_get_main_queue()) {
+                        DispatchQueue.main.async {
                             
                             spinner.stopAnimating()
                             spinner.removeFromSuperview()
                             
-                            let alertController = UIAlertController (title: "Cache is clear", message: nil, preferredStyle: .Alert)
+                            let alertController = UIAlertController (title: "Cache is clear", message: nil, preferredStyle: .alert)
                             
-                            let okAction = UIAlertAction(title: "Ok", style: .Default) { (_) -> Void in
+                            let okAction = UIAlertAction(title: "Ok", style: .default) { (_) -> Void in
                             }
                             alertController.addAction(okAction)
                             
                             if let topVC = UIApplication.topViewController() {
-                                topVC.presentViewController(alertController, animated: true, completion: nil)
+                                topVC.present(alertController, animated: true, completion: nil)
                             }
                         }
                     }
@@ -582,9 +582,9 @@ public class BVOfflineMapManager: NSObject {
                             
                             do {
                                 
-                                try fileManager.removeItemAtPath(filePathName)
+                                try fileManager.removeItem(atPath: filePathName)
                                 
-                                dispatch_async(dispatch_get_main_queue()) {
+                                DispatchQueue.main.async {
                                     
                                     spinner.stopAnimating()
                                     spinner.removeFromSuperview()
@@ -594,7 +594,7 @@ public class BVOfflineMapManager: NSObject {
                                 }
                                 
                             } catch {
-                                dispatch_async(dispatch_get_main_queue()) {
+                                DispatchQueue.main.async {
                                     
                                     spinner.stopAnimating()
                                     spinner.removeFromSuperview()
@@ -613,17 +613,17 @@ public class BVOfflineMapManager: NSObject {
         
     }
     
-    private func errorAlert() {
+    fileprivate func errorAlert() {
         
-        let alertController = UIAlertController (title: NSLocalizedString("Sorry...", comment: ""), message: NSLocalizedString("Something went wrong, please try again later", comment: "") , preferredStyle: .Alert)
+        let alertController = UIAlertController (title: NSLocalizedString("Sorry...", comment: ""), message: NSLocalizedString("Something went wrong, please try again later", comment: "") , preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Ok", style: .Default) { (_) -> Void in
+        let action = UIAlertAction(title: "Ok", style: .default) { (_) -> Void in
             
         }
         alertController.addAction(action)
         
         if let topVC = UIApplication.topViewController() {
-            topVC.presentViewController(alertController, animated: true, completion: nil)
+            topVC.present(alertController, animated: true, completion: nil)
         }
         
     }
@@ -634,7 +634,7 @@ public class BVOfflineMapManager: NSObject {
 // MARK: - Extensions -
 
 public extension UIApplication {
-    class func topViewController(controller: UIViewController? = UIApplication.sharedApplication().keyWindow?.rootViewController) -> UIViewController? {
+    class func topViewController(_ controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
         if let navigationController = controller as? UINavigationController {
             return topViewController(navigationController.visibleViewController)
         }
@@ -679,49 +679,49 @@ private class KYCircularProgress: UIView {
     /**
      Typealias of progressChangedClosure.
      */
-    private typealias progressChangedHandler = (progress: Double, circularView: KYCircularProgress) -> Void
+    fileprivate typealias progressChangedHandler = (_ progress: Double, _ circularView: KYCircularProgress) -> Void
     
     /**
      This closure is called when set value to `progress` property.
      */
-    private var progressChangedClosure: progressChangedHandler?
+    fileprivate var progressChangedClosure: progressChangedHandler?
     
     /**
      Main progress view.
      */
-    private var progressView: KYCircularShapeView!
+    fileprivate var progressView: KYCircularShapeView!
     
     /**
      Gradient mask layer of `progressView`.
      */
-    private var gradientLayer: CAGradientLayer!
+    fileprivate var gradientLayer: CAGradientLayer!
     
     /**
      Guide view of `progressView`.
      */
-    private var progressGuideView: KYCircularShapeView?
+    fileprivate var progressGuideView: KYCircularShapeView?
     
     /**
      Mask layer of `progressGuideView`.
      */
-    private var guideLayer: CALayer?
+    fileprivate var guideLayer: CALayer?
     
     /**
      Current progress value. (0.0 - 1.0)
      */
-    @IBInspectable private var progress: Double = 0.0 {
+    @IBInspectable fileprivate var progress: Double = 0.0 {
         didSet {
             let clipProgress = max( min(progress, Double(1.0)), Double(0.0) )
             progressView.updateProgress(clipProgress)
             
-            progressChangedClosure?(progress: clipProgress, circularView: self)
+            progressChangedClosure?(clipProgress, self)
         }
     }
     
     /**
      Progress start angle.
      */
-    private var startAngle: Double = 0.0 {
+    fileprivate var startAngle: Double = 0.0 {
         didSet {
             progressView.startAngle = startAngle
             progressGuideView?.startAngle = startAngle
@@ -731,7 +731,7 @@ private class KYCircularProgress: UIView {
     /**
      Progress end angle.
      */
-    private var endAngle: Double = 0.0 {
+    fileprivate var endAngle: Double = 0.0 {
         didSet {
             progressView.endAngle = endAngle
             progressGuideView?.endAngle = endAngle
@@ -741,7 +741,7 @@ private class KYCircularProgress: UIView {
     /**
      Main progress line width.
      */
-    @IBInspectable private var lineWidth: Double = 8.0 {
+    @IBInspectable fileprivate var lineWidth: Double = 8.0 {
         didSet {
             progressView.shapeLayer().lineWidth = CGFloat(lineWidth)
         }
@@ -750,7 +750,7 @@ private class KYCircularProgress: UIView {
     /**
      Guide progress line width.
      */
-    @IBInspectable private var guideLineWidth: Double = 8.0 {
+    @IBInspectable fileprivate var guideLineWidth: Double = 8.0 {
         didSet {
             progressGuideView?.shapeLayer().lineWidth = CGFloat(guideLineWidth)
         }
@@ -759,17 +759,17 @@ private class KYCircularProgress: UIView {
     /**
      Progress bar path. You can create various type of progress bar.
      */
-    private var path: UIBezierPath? {
+    fileprivate var path: UIBezierPath? {
         didSet {
-            progressView.shapeLayer().path = path?.CGPath
-            progressGuideView?.shapeLayer().path = path?.CGPath
+            progressView.shapeLayer().path = path?.cgPath
+            progressGuideView?.shapeLayer().path = path?.cgPath
         }
     }
     
     /**
      Progress bar colors. You can set many colors in `colors` property, and it makes gradation color in `colors`.
      */
-    private var colors: [UIColor]? {
+    fileprivate var colors: [UIColor]? {
         didSet {
             updateColors(colors)
         }
@@ -778,16 +778,16 @@ private class KYCircularProgress: UIView {
     /**
      Progress guide bar color.
      */
-    @IBInspectable private var progressGuideColor: UIColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.2) {
+    @IBInspectable fileprivate var progressGuideColor: UIColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.2) {
         didSet {
-            guideLayer?.backgroundColor = progressGuideColor.CGColor
+            guideLayer?.backgroundColor = progressGuideColor.cgColor
         }
     }
     
     /**
      Switch of progress guide view. If you set to `true`, progress guide view is enabled.
      */
-    @IBInspectable private var showProgressGuide: Bool = false {
+    @IBInspectable fileprivate var showProgressGuide: Bool = false {
         didSet {
             setNeedsLayout()
             layoutIfNeeded()
@@ -795,12 +795,12 @@ private class KYCircularProgress: UIView {
         }
     }
     
-    required private init?(coder aDecoder: NSCoder) {
+    required fileprivate init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configureProgressLayer()
     }
     
-    private override init(frame: CGRect) {
+    fileprivate override init(frame: CGRect) {
         super.init(frame: frame)
         configureProgressLayer()
     }
@@ -811,7 +811,7 @@ private class KYCircularProgress: UIView {
      :param: frame `KYCircularProgress` frame.
      :param: showProgressGuide If you set to `true`, progress guide view is enabled.
      */
-    private init(frame: CGRect, showProgressGuide: Bool) {
+    fileprivate init(frame: CGRect, showProgressGuide: Bool) {
         super.init(frame: frame)
         configureProgressLayer()
         self.showProgressGuide = showProgressGuide
@@ -822,39 +822,39 @@ private class KYCircularProgress: UIView {
      
      :param: completion progress changed closure.
      */
-    private func progressChangedClosure(completion: progressChangedHandler) {
+    fileprivate func progressChangedClosure(_ completion: @escaping progressChangedHandler) {
         progressChangedClosure = completion
     }
     
-    private func configureProgressLayer() {
+    fileprivate func configureProgressLayer() {
         progressView = KYCircularShapeView(frame: bounds)
-        progressView.shapeLayer().fillColor = UIColor.clearColor().CGColor
-        progressView.shapeLayer().path = path?.CGPath
+        progressView.shapeLayer().fillColor = UIColor.clear.cgColor
+        progressView.shapeLayer().path = path?.cgPath
         progressView.shapeLayer().lineWidth = CGFloat(lineWidth)
-        progressView.shapeLayer().strokeColor = tintColor.CGColor
+        progressView.shapeLayer().strokeColor = tintColor.cgColor
         
         gradientLayer = CAGradientLayer(layer: layer)
         gradientLayer.frame = progressView.frame
-        gradientLayer.startPoint = CGPointMake(0, 0.5)
-        gradientLayer.endPoint = CGPointMake(1, 0.5)
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
         gradientLayer.mask = progressView.shapeLayer()
-        gradientLayer.colors = colors ?? [UIColor(rgba: 0x9ACDE755).CGColor, UIColor(rgba: 0xE7A5C955).CGColor]
+        gradientLayer.colors = colors ?? [UIColor(rgba: 0x9ACDE755).cgColor, UIColor(rgba: 0xE7A5C955).cgColor]
         
         layer.addSublayer(gradientLayer)
     }
     
-    private func configureProgressGuideLayer(showProgressGuide: Bool) {
+    fileprivate func configureProgressGuideLayer(_ showProgressGuide: Bool) {
         if showProgressGuide && progressGuideView == nil {
             progressGuideView = KYCircularShapeView(frame: bounds)
-            progressGuideView!.shapeLayer().fillColor = UIColor.clearColor().CGColor
+            progressGuideView!.shapeLayer().fillColor = UIColor.clear.cgColor
             progressGuideView!.shapeLayer().path = progressView.shapeLayer().path
             progressGuideView!.shapeLayer().lineWidth = CGFloat(guideLineWidth)
-            progressGuideView!.shapeLayer().strokeColor = tintColor.CGColor
+            progressGuideView!.shapeLayer().strokeColor = tintColor.cgColor
             
             guideLayer = CAGradientLayer(layer: layer)
             guideLayer!.frame = progressGuideView!.frame
             guideLayer!.mask = progressGuideView!.shapeLayer()
-            guideLayer!.backgroundColor = progressGuideColor.CGColor
+            guideLayer!.backgroundColor = progressGuideColor.cgColor
             guideLayer!.zPosition = -1
             
             progressGuideView!.updateProgress(1.0)
@@ -863,17 +863,17 @@ private class KYCircularProgress: UIView {
         }
     }
     
-    private func updateColors(colors: [UIColor]?) {
-        var convertedColors: [CGColorRef] = []
+    fileprivate func updateColors(_ colors: [UIColor]?) {
+        var convertedColors: [CGColor] = []
         if let colors = colors {
             for color in colors {
-                convertedColors.append(color.CGColor)
+                convertedColors.append(color.cgColor)
             }
             if convertedColors.count == 1 {
                 convertedColors.append(convertedColors.first!)
             }
         } else {
-            convertedColors = [UIColor(rgba: 0x9ACDE7FF).CGColor, UIColor(rgba: 0xE7A5C9FF).CGColor]
+            convertedColors = [UIColor(rgba: 0x9ACDE7FF).cgColor, UIColor(rgba: 0xE7A5C9FF).cgColor]
         }
         gradientLayer.colors = convertedColors
     }
@@ -884,11 +884,11 @@ private class KYCircularShapeView: UIView {
     var startAngle = 0.0
     var endAngle = 0.0
     
-    override class func layerClass() -> AnyClass {
+    override class var layerClass : AnyClass {
         return CAShapeLayer.self
     }
     
-    private func shapeLayer() -> CAShapeLayer {
+    fileprivate func shapeLayer() -> CAShapeLayer {
         return layer as! CAShapeLayer
     }
     
@@ -907,15 +907,15 @@ private class KYCircularShapeView: UIView {
         if startAngle == endAngle {
             endAngle = startAngle + (M_PI * 2)
         }
-        shapeLayer().path = shapeLayer().path ?? layoutPath().CGPath
+        shapeLayer().path = shapeLayer().path ?? layoutPath().cgPath
     }
     
-    private func layoutPath() -> UIBezierPath {
-        let halfWidth = CGFloat(CGRectGetWidth(frame) / 2.0)
-        return UIBezierPath(arcCenter: CGPointMake(halfWidth, halfWidth), radius: halfWidth - shapeLayer().lineWidth, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: true)
+    fileprivate func layoutPath() -> UIBezierPath {
+        let halfWidth = CGFloat(frame.width / 2.0)
+        return UIBezierPath(arcCenter: CGPoint(x: halfWidth, y: halfWidth), radius: halfWidth - shapeLayer().lineWidth, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: true)
     }
     
-    private func updateProgress(progress: Double) {
+    fileprivate func updateProgress(_ progress: Double) {
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         shapeLayer().strokeEnd = CGFloat(progress)

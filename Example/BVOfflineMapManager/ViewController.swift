@@ -34,21 +34,20 @@ class ViewController: UIViewController {
     
     @IBAction func clear(sender: UIButton) {
         
-        
         BVOfflineMapManager.shared.clearMapCache { (success) in
             if success {
                 print("Cache has been successfully cleared")
                 
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     
-                    let alertController = UIAlertController (title: "Cache is clear", message: nil, preferredStyle: .Alert)
+                    let alertController = UIAlertController (title: "Cache is clear", message: nil, preferredStyle: .alert)
                     
-                    let okAction = UIAlertAction(title: "Ok", style: .Default) { (_) -> Void in
+                    let okAction = UIAlertAction(title: "Ok", style: .default) { (_) -> Void in
                     }
                     alertController.addAction(okAction)
                     
                     if let topVC = UIApplication.topViewController() {
-                        topVC.presentViewController(alertController, animated: true, completion: nil)
+                        topVC.present(alertController, animated: true, completion: nil)
                     }
                 }
             }
@@ -57,7 +56,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func downloadMap(sender: UIButton) {
-        BVOfflineMapManager.shared.startDownloading(center.latitude, lon: center.longitude, zoom: .Deep, radius: .Mile)
+        BVOfflineMapManager.shared.startDownloading(center.latitude, lon: center.longitude, zoom: .deep, radius: .mile)
         
     }
     
@@ -67,7 +66,7 @@ class ViewController: UIViewController {
         
         mapView.delegate = self
         
-        segmentControl.selectedSegmentIndex = CustomMapTileOverlayType.Apple.rawValue
+        segmentControl.selectedSegmentIndex = CustomMapTileOverlayType.apple.rawValue
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager = CLLocationManager()
@@ -86,33 +85,28 @@ class ViewController: UIViewController {
     
     private func reachable() {
         
-        do {
-            reachability = try  Reachability.reachabilityForInternetConnection()
-        } catch {
-            print("Unable to create Reachability")
-            return
-        }
+        reachability = Reachability()
         
         reachability!.whenReachable = { reachability in
             // this is called on a background thread, but UI updates must
             // be on the main thread, like this:
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 
-                if reachability.isReachableViaWiFi() {
+                if reachability.isReachableViaWiFi {
                     
                     print("Reachable via WiFi")
                     
-                    self.overlayType = .Apple
+                    self.overlayType = .apple
                     BVOfflineMapManager.shared.reloadTileOverlay(self.mapView, overlayType: self.overlayType)
                     
-                    self.downloadButton.hidden = false
+                    self.downloadButton.isHidden = false
                     
                 } else {
                     
                     print("Reachable via Cellular")
                     
-                    self.downloadButton.hidden = true
-                    self.overlayType = CustomMapTileOverlayType.Apple
+                    self.downloadButton.isHidden = true
+                    self.overlayType = CustomMapTileOverlayType.apple
                     BVOfflineMapManager.shared.reloadTileOverlay(self.mapView, overlayType: self.overlayType)
                     
                 }
@@ -122,10 +116,10 @@ class ViewController: UIViewController {
         reachability!.whenUnreachable = { reachability in
             // this is called on a background thread, but UI updates must
             // be on the main thread, like this:
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 
-                self.overlayType = .Offline
-                self.downloadButton.hidden = true
+                self.overlayType = .offline
+                self.downloadButton.isHidden = true
                 BVOfflineMapManager.shared.reloadTileOverlay(self.mapView, overlayType: self.overlayType)
                 print("Not reachable")
                 
@@ -138,43 +132,43 @@ class ViewController: UIViewController {
             print("Unable to start notifier")
         }
     }
+    
+    
 }
 
-extension ViewController: CLLocationManagerDelegate {
+extension ViewController: CLLocationManagerDelegate  {
     
-    
-    func locationManager(_manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations.last! as CLLocation
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15))
         self.mapView.setRegion(region, animated: true)
         locationManager.stopUpdatingLocation()
+        
     }
     
-
-    
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         manager.stopUpdatingLocation()
     }
+    
 }
 
 
 extension ViewController: MKMapViewDelegate {
     
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         center = mapView.centerCoordinate
-        
     }
     
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         
         guard let tileOverlay = overlay as? MKTileOverlay else {
             return MKOverlayRenderer()
         }
         return MKTileOverlayRenderer(tileOverlay: tileOverlay)
     }
-
+    
 }
+
 
