@@ -15,7 +15,9 @@ iOS 8.0+, Swift 2.2
 
 ## Usage 
 
-To start maps downloading within given radius and zoom and save it call: 
+Swift 2.2: 
+
+To start maps downloading and saving call following methid with passing of initial coordinate lat and lon, radius and zoom: 
 
 ```swift
 BVOfflineMapManager.shared.startDownloading(lat: Double, lon: Double, zoom: CustomMapZoom, radius: CustomMapRadius)
@@ -25,7 +27,6 @@ To reload map tiles from online to offline and back call:
 ```swift
 BVOfflineMapManager.shared.reloadTileOverlay(mapView: MKMapView, overlayType: CustomMapTileOverlayType?)
 ```
-
 
 To clear cached maps to free disk space call:
 
@@ -48,8 +49,8 @@ Victor Barskov, victor.barskov@gmail.com
 
 ## References: 
 
-[Circular Progress Bar] - circullar bar which useed in the library
-[Custom and OfflineMaps UsingOverlay Tiles] - the library inspired by this article 
+* [Circular Progress Bar] - circullar bar which useed in the library
+* [Custom and OfflineMaps UsingOverlay Tiles] - the library inspired by this article 
 
 ## License
 
