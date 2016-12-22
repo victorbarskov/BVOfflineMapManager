@@ -133,7 +133,6 @@ class ViewController: UIViewController {
         }
     }
     
-    
 }
 
 extension ViewController: CLLocationManagerDelegate  {
