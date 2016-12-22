@@ -1,0 +1,6 @@
+framework module BVOfflineMapManager {
+  umbrella header "BVOfflineMapManager-umbrella.h"
+
+  export *
+  module * { export * }
+}

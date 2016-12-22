@@ -1,0 +1,16 @@
+PODS:
+  - BVOfflineMapManager (0.1.0)
+
+DEPENDENCIES:
+  - BVOfflineMapManager (from `../`)
+
+EXTERNAL SOURCES:
+  BVOfflineMapManager:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  BVOfflineMapManager: 0bb89bbab24f6f665f46673748fb1afca27c4ea8
+
+PODFILE CHECKSUM: 805c51b0396ac0458594cf479a4fbfb20d6a9c99
+
+COCOAPODS: 1.1.1
