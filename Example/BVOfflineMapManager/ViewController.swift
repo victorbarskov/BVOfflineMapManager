@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     
     @IBAction func clear(sender: UIButton) {
         
+        
         BVOfflineMapManager.shared.clearMapCache { (success) in
             if success {
                 print("Cache has been successfully cleared")
@@ -52,10 +53,12 @@ class ViewController: UIViewController {
                 }
             }
         }
+        
     }
     
     @IBAction func downloadMap(sender: UIButton) {
         BVOfflineMapManager.shared.startDownloading(center.latitude, lon: center.longitude, zoom: .Deep, radius: .Mile)
+        
     }
     
     
