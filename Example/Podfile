@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'BVOfflineMapManager_Example' do
+  pod 'BVOfflineMapManager', :path => '../'
+
+  target 'BVOfflineMapManager_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
