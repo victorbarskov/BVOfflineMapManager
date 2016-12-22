@@ -800,7 +800,7 @@ private class KYCircularProgress: UIView {
         configureProgressLayer()
     }
     
-    public override init(frame: CGRect) {
+    private override init(frame: CGRect) {
         super.init(frame: frame)
         configureProgressLayer()
     }
@@ -822,7 +822,7 @@ private class KYCircularProgress: UIView {
      
      :param: completion progress changed closure.
      */
-    public func progressChangedClosure(completion: progressChangedHandler) {
+    private func progressChangedClosure(completion: progressChangedHandler) {
         progressChangedClosure = completion
     }
     
