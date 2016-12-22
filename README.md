@@ -2,6 +2,7 @@
 
 [![CI Status](http://img.shields.io/travis/Victor Barskov/BVOfflineMapManager.svg?style=flat)](https://travis-ci.org/Victor Barskov/BVOfflineMapManager)
 [![Version](https://img.shields.io/cocoapods/v/BVOfflineMapManager.svg?style=flat)](http://cocoapods.org/pods/BVOfflineMapManager)
+[![Swift](https://img.shields.io/badge/swift-3-orange.svg?style=flat)](https://developer.apple.com/swift/)
 [![License](https://img.shields.io/cocoapods/l/BVOfflineMapManager.svg?style=flat)](http://cocoapods.org/pods/BVOfflineMapManager)
 [![Platform](https://img.shields.io/cocoapods/p/BVOfflineMapManager.svg?style=flat)](http://cocoapods.org/pods/BVOfflineMapManager)
 
@@ -15,7 +16,7 @@ iOS 8.0+, Swift 2.3, Swift 3
 
 ## Usage 
 
-Swift 2.3: 
+Swift 2.3, Swift 3: 
 
 To start maps downloading and saving call following method with passing of initial coordinate lat and lon, radius and zoom: 
 
