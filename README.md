@@ -14,14 +14,14 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 iOS 8.0+, Swift 2.3, Swift 3
 
-## Usage 
 
-Swift 2.3, Swift 3: 
-
-IMPORTANT: 
+## IMPORTANT: 
 
 Do not forget to Allow Arbitrary Loads for App Transport Security Settings in info.plist  
 
+## Usage 
+
+Swift 2.3, Swift 3: 
 
 To start maps downloading and saving call following method with passing of initial coordinate lat and lon, radius and zoom: 
 
