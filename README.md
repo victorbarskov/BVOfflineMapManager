@@ -51,7 +51,7 @@ it, simply add the following line to your Podfile:
 Swift 3
 
 ```ruby
-pod 'BVOfflineMapManager', '0.1.1'
+pod 'BVOfflineMapManager', '0.1.2'
 ```
 Swift 2.3
 
