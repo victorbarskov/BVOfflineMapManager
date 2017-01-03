@@ -58,6 +58,8 @@ open class BVOfflineMapManager: NSObject {
     
     // MARK: - Properties -
     
+    fileprivate var backgrountTask : UIBackgroundTaskIdentifier?
+    
     fileprivate var downloadedTiles = 0
     fileprivate var countTiles = 0
     fileprivate var circularProgress: KYCircularProgress!
@@ -102,6 +104,27 @@ open class BVOfflineMapManager: NSObject {
     
     // - All about tiles downloading -
     
+    fileprivate func startBackgroundTask() {
+        // Start background task
+        if self.backgrountTask == nil {
+            self.backgrountTask = UIApplication.shared.beginBackgroundTask {
+                guard let identifier = self.backgrountTask else { return }
+                UIApplication.shared.endBackgroundTask(identifier)
+                self.backgrountTask = nil
+            }
+        }
+    }
+    
+    fileprivate func stopBackgroundTask() {
+        
+        // End background task
+        if let identifier = self.backgrountTask {
+            UIApplication.shared.endBackgroundTask(identifier)
+            self.backgrountTask = nil
+        }
+    }
+    
+    
     fileprivate func transformWorldCoordinateToTilePathForZoom(_ zoom: Int, lon: Double, lat : Double) -> (x: Int, y: Int) {
         
         let midtileX = floor((lon + 180.0) / 360.0 * pow(2.0, Double(zoom)))
@@ -114,17 +137,17 @@ open class BVOfflineMapManager: NSObject {
     }
     
     open func startDownloading (_ lat: Double,
-                                  lon: Double,
-                                  zoom: CustomMapZoom,
-                                  radius: CustomMapRadius,
-                                  progressfillColor: UIColor = UIColor.black,
-                                  progressGuideColor: UIColor = UIColor.lightGray,
-                                  fillLineWidth: Double = 12.0,
-                                  textLabelFont: UIFont = UIFont.systemFont(ofSize: 28.0),
-                                  textLabelColor: UIColor = UIColor.black,
-                                  stopButtonColor: UIColor = UIColor.blue,
-                                  stopButtonLabelFont: UIFont = UIFont.systemFont(ofSize: 17.0),
-                                  stopButtontitle: String = NSLocalizedString("Stop", comment: "")) {
+                                lon: Double,
+                                zoom: CustomMapZoom,
+                                radius: CustomMapRadius,
+                                progressfillColor: UIColor = UIColor.black,
+                                progressGuideColor: UIColor = UIColor.lightGray,
+                                fillLineWidth: Double = 12.0,
+                                textLabelFont: UIFont = UIFont.systemFont(ofSize: 28.0),
+                                textLabelColor: UIColor = UIColor.black,
+                                stopButtonColor: UIColor = UIColor.blue,
+                                stopButtonLabelFont: UIFont = UIFont.systemFont(ofSize: 17.0),
+                                stopButtontitle: String = NSLocalizedString("Stop", comment: "")) {
         
         
         stopDownloading()
@@ -143,7 +166,7 @@ open class BVOfflineMapManager: NSObject {
             
             countedTilesConst = count
             
-//            let qos = Int(DispatchQoS.QoSClass.userInitiated.rawValue)
+            //            let qos = Int(DispatchQoS.QoSClass.userInitiated.rawValue)
             
             DispatchQueue.global(priority: .background).async { () -> Void in
                 
@@ -225,7 +248,7 @@ open class BVOfflineMapManager: NSObject {
         
         var count = 0
         
-//        let qos = Int(DispatchQoS.QoSClass.userInitiated.rawValue)
+        //        let qos = Int(DispatchQoS.QoSClass.userInitiated.rawValue)
         
         DispatchQueue.global(priority: .background).async { () -> Void in
             
@@ -309,6 +332,8 @@ open class BVOfflineMapManager: NSObject {
         queue.name = "TileDownloadQueue"
         queue.maxConcurrentOperationCount = 1
         
+        startBackgroundTask()
+        
         queue.addOperation {
             
             URLSession.shared.downloadTask(with: urlWithString!, completionHandler: { temporaryURL, response, error in
@@ -349,7 +374,7 @@ open class BVOfflineMapManager: NSObject {
                 self.saveImage(image, fileName: fileName, type: "png", directoryPath: pathForWriting)
                 downloadedTilesConst += 1
                 
-                //                print("downloadedTiles: \(downloadedTilesConst)")
+                print("downloadedTiles: \(downloadedTilesConst)")
                 
                 guard error == nil && temporaryURL != nil else {
                     print(error)
@@ -379,6 +404,8 @@ open class BVOfflineMapManager: NSObject {
                             
                             self.stopDownloading()
                             
+                            self.stopBackgroundTask()
+                            
                             let alertController = UIAlertController (title: "Thank you!", message: "Maps will be switched automatically once you will be offline", preferredStyle: .alert)
                             
                             let action = UIAlertAction(title:"Ok", style: .default) { (_) -> Void in
@@ -392,7 +419,7 @@ open class BVOfflineMapManager: NSObject {
                         }
                     }
                 }
-                }) .resume()
+            }) .resume()
         }
     }
     
@@ -544,7 +571,7 @@ open class BVOfflineMapManager: NSObject {
         let documentsUrl =  FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first! as? URL
         let documentsPath = documentsUrl?.path
         
-//        let qos = Int(DispatchQoS.QoSClass.userInitiated.rawValue)
+        //        let qos = Int(DispatchQoS.QoSClass.userInitiated.rawValue)
         
         DispatchQueue.global(priority: .background).async { () -> Void in
             
