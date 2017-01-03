@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BVOfflineMapManager'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'This lib download and save maps in given radius and zoom levels'
 
 # This description is used to generate tags and improve search results.
